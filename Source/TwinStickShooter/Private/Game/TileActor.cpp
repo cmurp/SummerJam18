@@ -20,16 +20,18 @@ void ATileActor::BeginPlay()
 	CanSpawnAtLocation(GetActorLocation(), 30.0f);
 }
 
-void ATileActor::PlaceActors(TSubclassOf<AActor> ToSpawn, int NumToSpawn, float ItemRadius)
+TArray<AActor*> ATileActor::PlaceActors(TSubclassOf<AActor> ToSpawn, int NumToSpawn, float ItemRadius)
 {
-
+	TArray<AActor*> Actors;
 	for (size_t i = 0; i < NumToSpawn; i++) {
 		FVector SpawnPoint;
 		if (FindEmptyLocation(SpawnPoint, ItemRadius)) {
 			float RandomRotation = FMath::RandRange(-180.0f, 180.0f);
-			PlaceActor(ToSpawn, SpawnPoint, RandomRotation);
+			Actors.Add(PlaceActor(ToSpawn, SpawnPoint, RandomRotation));
 		}
 	}
+
+	return Actors;
 }
 
 bool ATileActor::FindEmptyLocation(FVector& OutLocation, float Radius)
@@ -51,16 +53,14 @@ bool ATileActor::FindEmptyLocation(FVector& OutLocation, float Radius)
 	return false;
 }
 
-void ATileActor::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation)
+AActor* ATileActor::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation)
 {
 	FAttachmentTransformRules TransformRules(EAttachmentRule::KeepRelative, false);
 	AActor* Spawned = GetWorld()->SpawnActor<AActor>(ToSpawn);
-	if (IsValid(Spawned)) {
-		UE_LOG(LogTemp, Warning, TEXT("Actor spawned"));
-	}
 	Spawned->SetActorRelativeLocation(SpawnPoint);
 	Spawned->AttachToActor(this, TransformRules);
 	Spawned->SetActorRotation(FRotator(0, Rotation, 0));
+	return Spawned;
 }
 
 

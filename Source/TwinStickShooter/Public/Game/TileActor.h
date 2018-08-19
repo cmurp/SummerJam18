@@ -21,7 +21,7 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Terrain")
-		void PlaceActors(TSubclassOf<AActor> ToSpawn, int NumToSpawn = 1, float ItemRadius = 20);
+	TArray<AActor*> PlaceActors(TSubclassOf<AActor> ToSpawn, int NumToSpawn = 1, float ItemRadius = 20);
 
 private:
 
@@ -29,6 +29,6 @@ private:
 
 	bool FindEmptyLocation(FVector& OutLocation, float Radius);
 
-	void PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation);
+	AActor* PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation);
 
 };
