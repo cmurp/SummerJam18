@@ -27,6 +27,7 @@ private:
 
 	bool CanSpawnAtLocation(FVector Location, float Radius);
 
+	UFUNCTION(BlueprintCallable, Category = "Terrain")
 	bool FindEmptyLocation(FVector& OutLocation, float Radius);
 
 	AActor* PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation);
