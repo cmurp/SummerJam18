@@ -36,8 +36,8 @@ TArray<AActor*> ATileActor::PlaceActors(TSubclassOf<AActor> ToSpawn, int NumToSp
 
 bool ATileActor::FindEmptyLocation(FVector& OutLocation, float Radius)
 {
-	FVector Min(-2000, -2000, 0);
-	FVector Max(2000, 2000, 0);
+	FVector Min(-3000, -3000, 0);
+	FVector Max(3000, 3000, 0);
 
 	FBox Bounds(Min, Max);
 
